@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body { font-family: Arial, sans-serif; font-size: 14px; color: #222; }
+        .header { text-align: center; margin-bottom: 30px; }
+        .header h1 { color: #1F3864; margin-bottom: 5px; }
+        .invoice-info { margin-bottom: 20px; }
+        .invoice-info table { width: 100%; }
+        .invoice-info td { padding: 4px 0; }
+        .client-box { border: 1px solid #ddd; padding: 15px; margin-bottom: 30px; background: #f9f9f9; }
+        .amount-box { text-align: right; margin-top: 40px; }
+        .amount-box .total { font-size: 22px; font-weight: bold; color: #1F3864; }
+        .status { display: inline-block; padding: 4px 12px; border-radius: 4px; font-weight: bold; }
+        .status.paid { background: #d4edda; color: #155724; }
+        .status.unpaid { background: #f8d7da; color: #721c24; }
+        .footer { margin-top: 60px; font-size: 11px; color: #888; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>FACTURE</h1>
+        <p>N° {{ facture.invoiceNumber }}</p>
+    </div>
+
+    <div class="invoice-info">
+        <table>
+            <tr>
+                <td><strong>Date d'émission :</strong></td>
+                <td>{{ facture.issuedAt|date('d/m/Y') }}</td>
+            </tr>
+            <tr>
+                <td><strong>Statut :</strong></td>
+                <td>
+                    <span class="status {{ facture.isPaid ? 'paid' : 'unpaid' }}">
+                        {{ facture.isPaid ? 'Payée' : 'Non payée' }}
+                    </span>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="client-box">
+        <strong>Client :</strong><br>
+        {{ facture.devis.client.name }}<br>
+        {{ facture.devis.client.email }}<br>
+        {% if facture.devis.client.phone %}{{ facture.devis.client.phone }}<br>{% endif %}
+        {% if facture.devis.client.address %}{{ facture.devis.client.address }}{% endif %}
+    </div>
+
+    <div class="amount-box">
+        <p>Montant total</p>
+        <p class="total">{{ facture.devis.totalAmount|number_format(2, ',', ' ') }} €</p>
+    </div>
+
+    <div class="footer">
+        Facture générée automatiquement — Facturation App
+    </div>
+</body>
+</html>
