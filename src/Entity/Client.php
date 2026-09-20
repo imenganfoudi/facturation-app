@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata\ApiResource;
+use Symfony\Component\Validator\Constraints as Assert;
 #[ApiResource]
 #[ORM\Entity(repositoryClass: ClientRepository::class)]
 class Client
@@ -17,11 +18,14 @@ class Client
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $name = null;
+ #[ORM\Column(length: 255)]
+#[Assert\NotBlank(message: 'Le nom est obligatoire.')]
+private ?string $name = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $email = null;
+#[ORM\Column(length: 255)]
+#[Assert\NotBlank]
+#[Assert\Email(message: 'L\'adresse email n\'est pas valide.')]
+private ?string $email = null;
 
     #[ORM\Column(length: 20, nullable: true)]
     private ?string $phone = null;
