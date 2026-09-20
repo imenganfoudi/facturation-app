@@ -6,6 +6,7 @@ use App\Repository\ProductRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata\ApiResource;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ApiResource]
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
@@ -16,15 +17,15 @@ class Product
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $name = null;
-
+   #[ORM\Column(length: 255)]
+#[Assert\NotBlank(message: 'Le nom du produit est obligatoire.')]
+private ?string $name = null;
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
-    #[ORM\Column]
-    private ?float $unitPrice = null;
-
+   #[ORM\Column]
+#[Assert\Positive(message: 'Le prix doit être positif.')]
+private ?float $unitPrice = null;
     #[ORM\Column]
     private ?bool $isActive = null;
 
