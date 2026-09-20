@@ -17,7 +17,7 @@ class Facture
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Client $devis = null;
+    private ?Devis $devis = null;
 
     #[ORM\Column(length: 50)]
     private ?string $invoiceNumber = null;
@@ -33,12 +33,12 @@ class Facture
         return $this->id;
     }
 
-    public function getDevis(): ?Client
+    public function getDevis(): ?Devis
     {
         return $this->devis;
     }
 
-    public function setDevis(Client $devis): static
+    public function setDevis(Devis $devis): static
     {
         $this->devis = $devis;
 
