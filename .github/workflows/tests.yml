@@ -34,7 +34,7 @@ jobs:
 
       - name: Set test database URL
         run: |
-          echo "DATABASE_URL=mysql://root:root@127.0.0.1:3306/facturation_app_test?serverVersion=8.0&charset=utf8mb4" >> .env.test.local
+          echo "DATABASE_URL=mysql://root:root@127.0.0.1:3306/facturation_app?serverVersion=8.0&charset=utf8mb4" >> .env.test.local
 
       - name: Install Composer dependencies
         run: composer install --no-interaction --prefer-dist --optimize-autoloader
